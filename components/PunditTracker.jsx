@@ -373,8 +373,8 @@ export default function PunditTracker() {
       <div style={{ marginBottom: 28 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
           <div onClick={handleTitleClick} style={{ cursor: "default", userSelect: "none" }}>
-            <h1 style={{ margin: 0, fontSize: 22, fontWeight: 800, color: "#fafaf9", letterSpacing: -0.5, fontFamily: headFont }}>PUNDIT TRACKER</h1>
-            <div style={{ fontSize: 11, color: "#78716c", fontFamily: monoFont, letterSpacing: 1, marginTop: 2 }}>FINANCIAL COMMENTARY LOG</div>
+            <h1 style={{ margin: 0, fontSize: 22, fontWeight: 800, color: "#fafaf9", letterSpacing: -0.5, fontFamily: headFont }}>HINDSIGHT CAPITAL</h1>
+            <div style={{ fontSize: 11, color: "#78716c", fontFamily: monoFont, letterSpacing: 1, marginTop: 2 }}>WALL STREET PREDICTION TRACKER</div>
           </div>
           <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
             {navItems.map(function(item) {
