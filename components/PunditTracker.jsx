@@ -190,6 +190,8 @@ export default function PunditTracker() {
   const [showChangePin, setShowChangePin] = useState(false);
   const [newPinInput, setNewPinInput] = useState("");
   const [confirmNewPin, setConfirmNewPin] = useState("");
+  const [titleClicks, setTitleClicks] = useState(0);
+  const [titleClickTimer, setTitleClickTimer] = useState(null);
 
   useEffect(function() {
     var cancelled = false;
@@ -219,6 +221,19 @@ export default function PunditTracker() {
     } else {
       setPinError("Wrong PIN");
       setPinInput("");
+    }
+  };
+
+  var handleTitleClick = function() {
+    var next = titleClicks + 1;
+    setTitleClicks(next);
+    if (titleClickTimer) clearTimeout(titleClickTimer);
+    if (next >= 5) {
+      setTitleClicks(0);
+      if (!isAdmin) { setShowLogin(true); setPinError(""); setPinInput(""); }
+    } else {
+      var t = setTimeout(function() { setTitleClicks(0); }, 1500);
+      setTitleClickTimer(t);
     }
   };
 
@@ -320,7 +335,7 @@ export default function PunditTracker() {
       {/* Header */}
       <div style={{ marginBottom: 28 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
-          <div>
+          <div onClick={handleTitleClick} style={{ cursor: "default", userSelect: "none" }}>
             <h1 style={{ margin: 0, fontSize: 22, fontWeight: 800, color: "#fafaf9", letterSpacing: -0.5, fontFamily: headFont }}>PUNDIT TRACKER</h1>
             <div style={{ fontSize: 11, color: "#78716c", fontFamily: monoFont, letterSpacing: 1, marginTop: 2 }}>FINANCIAL COMMENTARY LOG</div>
           </div>
@@ -337,16 +352,15 @@ export default function PunditTracker() {
                 }}>{item.label}</button>
               );
             })}
-            <button onClick={function() {
-              if (isAdmin) { setIsAdmin(false); setView("dashboard"); setShowChangePin(false); }
-              else { setShowLogin(!showLogin); setPinError(""); setPinInput(""); }
-            }} style={{
-              background: isAdmin ? "rgba(34,197,94,0.12)" : "transparent",
-              color: isAdmin ? "#22c55e" : "#78716c",
-              border: "1px solid " + (isAdmin ? "rgba(34,197,94,0.3)" : "rgba(255,255,255,0.06)"),
-              borderRadius: 6, padding: "6px 10px", cursor: "pointer",
-              fontSize: 13, fontFamily: monoFont, lineHeight: 1,
-            }}>{isAdmin ? "🔓" : "🔒"}</button>
+            {isAdmin && (
+              <button onClick={function() { setIsAdmin(false); setView("dashboard"); setShowChangePin(false); }} style={{
+                background: "rgba(34,197,94,0.12)",
+                color: "#22c55e",
+                border: "1px solid rgba(34,197,94,0.3)",
+                borderRadius: 6, padding: "6px 10px", cursor: "pointer",
+                fontSize: 13, fontFamily: monoFont, lineHeight: 1,
+              }}>🔓</button>
+            )}
           </div>
         </div>
       </div>
