@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import PunditChart from "./PunditChart";
 
 const STORAGE_KEY = "pundit-tracker-v3";
 const PIN_KEY = "pundit-tracker-pin";
@@ -202,6 +203,7 @@ export default function PunditTracker() {
   const [confirmNewPin, setConfirmNewPin] = useState("");
   const [titleClicks, setTitleClicks] = useState(0);
   const [titleClickTimer, setTitleClickTimer] = useState(null);
+  const [punditDetail, setPunditDetail] = useState(null);
 
   useEffect(function() {
     var cancelled = false;
@@ -353,7 +355,7 @@ export default function PunditTracker() {
             {navItems.map(function(item) {
               var active = view === item.key;
               return (
-                <button key={item.key} onClick={function() { setView(item.key); }} style={{
+                <button key={item.key} onClick={function() { setView(item.key); setPunditDetail(null); }} style={{
                   background: active ? "rgba(250,204,21,0.15)" : "transparent",
                   color: active ? "#facc15" : "#78716c",
                   border: "1px solid " + (active ? "#facc1544" : "rgba(255,255,255,0.06)"),
@@ -499,7 +501,7 @@ export default function PunditTracker() {
       )}
 
       {/* Leaderboard view */}
-      {view === "leaderboard" && (
+      {view === "leaderboard" && !punditDetail && (
         <div>
           <h2 style={{ margin: "0 0 16px", fontSize: 15, color: "#fafaf9", fontFamily: headFont }}>Commentators</h2>
           {leaderboard.length === 0 ? (
@@ -512,7 +514,7 @@ export default function PunditTracker() {
                     display: "flex", alignItems: "center", gap: 14,
                     background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)",
                     borderRadius: 10, padding: "14px 18px", cursor: "pointer",
-                  }} onClick={function() { setFilterCommentator(c.name); setFilterDirection("all"); setView("dashboard"); }}>
+                  }} onClick={function() { setPunditDetail(c.name); }}>
                     <div style={{
                       width: 28, height: 28, borderRadius: "50%",
                       background: i === 0 ? "rgba(250,204,21,0.13)" : "rgba(255,255,255,0.04)",
@@ -535,6 +537,56 @@ export default function PunditTracker() {
           )}
         </div>
       )}
+
+      {/* Pundit detail view */}
+      {view === "leaderboard" && punditDetail && (function() {
+        var pundPreds = data.predictions.filter(function(p) { return p.commentator === punditDetail; });
+        var pundBullish = pundPreds.filter(function(p) { return p.direction === "bullish"; }).length;
+        var pundBearish = pundPreds.filter(function(p) { return p.direction === "bearish"; }).length;
+        var pundNeutral = pundPreds.filter(function(p) { return p.direction === "neutral"; }).length;
+        return (
+          <div>
+            {/* Back button + name */}
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+              <button onClick={function() { setPunditDetail(null); }} style={{
+                background: "transparent", color: "#78716c",
+                border: "1px solid rgba(255,255,255,0.08)", borderRadius: 6,
+                padding: "5px 12px", cursor: "pointer", fontSize: 11,
+                fontFamily: monoFont, display: "flex", alignItems: "center", gap: 6,
+              }}>← Back</button>
+              <h2 style={{ margin: 0, fontSize: 16, fontWeight: 800, color: "#fafaf9", fontFamily: headFont }}>{punditDetail}</h2>
+            </div>
+
+            {/* Mini stats */}
+            <div style={{ display: "flex", gap: 8, marginBottom: 22, flexWrap: "wrap" }}>
+              {[
+                { label: "Total", value: pundPreds.length, color: "#fafaf9" },
+                { label: "Bullish", value: pundBullish, color: "#22c55e" },
+                { label: "Bearish", value: pundBearish, color: "#ef4444" },
+                { label: "Neutral", value: pundNeutral, color: "#a1a1aa" },
+              ].map(function(s) {
+                return (
+                  <div key={s.label} style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 8, padding: "10px 16px" }}>
+                    <div style={{ fontSize: 10, color: "#78716c", fontFamily: monoFont, textTransform: "uppercase", letterSpacing: 1, marginBottom: 3 }}>{s.label}</div>
+                    <div style={{ fontSize: 22, fontWeight: 700, color: s.color, fontFamily: headFont, lineHeight: 1 }}>{s.value}</div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Chart */}
+            <PunditChart predictions={pundPreds} />
+
+            {/* Predictions list */}
+            <div style={{ fontSize: 11, color: "#78716c", fontFamily: monoFont, textTransform: "uppercase", letterSpacing: 1, marginBottom: 10 }}>
+              All Calls
+            </div>
+            {pundPreds.map(function(p) {
+              return <PredictionCard key={p.id} pred={p} onDelete={handleDelete} isAdmin={isAdmin} />;
+            })}
+          </div>
+        );
+      })()}
 
       {/* Admin footer */}
       {isAdmin && total > 0 && (
