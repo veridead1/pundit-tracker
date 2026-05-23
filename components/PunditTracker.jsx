@@ -346,6 +346,39 @@ export default function PunditTracker() {
     return true;
   });
 
+  // Build S&P 500 year-end 2026 targets sidebar
+  function parseTargetNum(t) {
+    if (!t) return null;
+    var clean = t.replace(/,/g, "").replace(/\+/g, "").replace(/~/g, "");
+    var m = clean.match(/\d{4,}/);
+    return m ? parseInt(m[0]) : null;
+  }
+
+  var sp500Targets = [];
+  var seenTargetCommentators = {};
+  data.predictions
+    .filter(function(p) {
+      if (!p.target || !p.timeframe) return false;
+      var tf = p.timeframe.toLowerCase();
+      var isYearEnd2026 = tf.includes("2026") || tf.includes("year-end");
+      var num = parseTargetNum(p.target);
+      return p.asset === "S&P 500" && isYearEnd2026 && num && num > 5000 && p.direction !== "bearish";
+    })
+    .sort(function(a, b) {
+      return new Date(b.date_stated || 0) - new Date(a.date_stated || 0);
+    })
+    .forEach(function(p) {
+      if (!seenTargetCommentators[p.commentator]) {
+        seenTargetCommentators[p.commentator] = true;
+        sp500Targets.push({ commentator: p.commentator, target: parseTargetNum(p.target), id: p.id });
+      }
+    });
+  sp500Targets.sort(function(a, b) { return b.target - a.target; });
+
+  var maxTarget = sp500Targets.length > 0 ? sp500Targets[0].target : 0;
+  var minTarget = sp500Targets.length > 0 ? sp500Targets[sp500Targets.length - 1].target : 0;
+  var targetRange = maxTarget - minTarget || 1;
+
   var inputStyle = {
     background: "rgba(0,0,0,0.3)", color: "#fafaf9",
     border: "1px solid rgba(255,255,255,0.15)", borderRadius: 6,
@@ -368,7 +401,68 @@ export default function PunditTracker() {
   }
 
   return (
-    <div style={shellStyle}>
+    <div style={{
+      maxWidth: 1080,
+      margin: "0 auto",
+      padding: 24,
+      fontFamily: "'DM Sans', system-ui, sans-serif",
+      color: "#d6d3d1",
+      minHeight: "100vh",
+      display: "flex",
+      gap: 24,
+      alignItems: "flex-start",
+    }}>
+
+      {/* S&P 500 Targets Sidebar */}
+      {sp500Targets.length > 0 && (
+        <div style={{
+          width: 200,
+          flexShrink: 0,
+          position: "sticky",
+          top: 24,
+          background: "rgba(255,255,255,0.02)",
+          border: "1px solid rgba(255,255,255,0.06)",
+          borderRadius: 12,
+          padding: "14px 12px",
+          alignSelf: "flex-start",
+        }}>
+          <div style={{ fontSize: 9, color: "#78716c", fontFamily: monoFont, textTransform: "uppercase", letterSpacing: 1.2, marginBottom: 12 }}>
+            2026 S&P 500 Targets
+          </div>
+          {sp500Targets.map(function(t, i) {
+            var barPct = ((t.target - minTarget) / targetRange) * 100;
+            var shortName = t.commentator
+              .replace(/ \(.*?\)/g, "")
+              .replace("Global Wealth Management", "")
+              .replace("Investment Institute", "")
+              .replace("Capital Markets", "")
+              .replace("Intelligence (60+ institutions)", "")
+              .trim();
+            return (
+              <div key={t.id} style={{ marginBottom: 8 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 3 }}>
+                  <span style={{ fontSize: 9, color: "#57534e", fontFamily: monoFont, width: 14, textAlign: "right", flexShrink: 0 }}>{i + 1}</span>
+                  <span style={{ flex: 1, fontSize: 10, color: "#a8a29e", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }} title={t.commentator}>
+                    {shortName}
+                  </span>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: "#facc15", fontFamily: monoFont, flexShrink: 0 }}>
+                    {t.target.toLocaleString()}
+                  </span>
+                </div>
+                <div style={{ marginLeft: 20, height: 2, background: "rgba(255,255,255,0.04)", borderRadius: 1 }}>
+                  <div style={{ height: "100%", width: barPct + "%", background: "rgba(250,204,21,0.35)", borderRadius: 1, minWidth: "8%" }} />
+                </div>
+              </div>
+            );
+          })}
+          <div style={{ marginTop: 12, paddingTop: 10, borderTop: "1px solid rgba(255,255,255,0.05)", fontSize: 9, color: "#57534e", fontFamily: monoFont }}>
+            {sp500Targets.length} forecasts · hover for full name
+          </div>
+        </div>
+      )}
+
+      {/* Main content */}
+      <div style={{ flex: 1, minWidth: 0, maxWidth: 720 }}>
       {/* Header */}
       <div style={{ marginBottom: 28 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
@@ -630,6 +724,8 @@ export default function PunditTracker() {
           </div>
         </div>
       )}
+
+      </div> {/* end main content */}
     </div>
   );
 }
