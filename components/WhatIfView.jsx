@@ -344,6 +344,55 @@ export default function WhatIfView() {
             </div>
           </div>
 
+          {/* Affiliate CTA */}
+          {/* Replace href values below with your actual affiliate referral links */}
+          <div style={{
+            background: "rgba(255,255,255,0.02)",
+            border: "1px solid rgba(255,255,255,0.07)",
+            borderRadius: 10, padding: "14px 18px", marginBottom: 18,
+            display: "flex", alignItems: "center", justifyContent: "space-between",
+            flexWrap: "wrap", gap: 12,
+          }}>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: "#000000", fontFamily: "'DM Sans', system-ui, sans-serif", marginBottom: 3 }}>
+                {isPositive ? "Stop watching from the sidelines." : "Every investor starts somewhere."}
+              </div>
+              <div style={{ fontSize: 11, color: "#78716c", fontFamily: monoFont }}>
+                Open a free brokerage account and start building your portfolio
+              </div>
+            </div>
+            <div style={{ display: "flex", gap: 8, flexShrink: 0 }}>
+              <a
+                href="https://robinhood.com/us/en/about/referral/"
+                target="_blank"
+                rel="noopener noreferrer sponsored"
+                style={{
+                  background: "rgba(34,197,94,0.12)", color: "#22c55e",
+                  border: "1px solid rgba(34,197,94,0.3)",
+                  borderRadius: 6, padding: "7px 14px",
+                  fontSize: 12, fontWeight: 700, fontFamily: monoFont,
+                  textDecoration: "none", whiteSpace: "nowrap",
+                }}
+              >
+                Robinhood →
+              </a>
+              <a
+                href="https://www.webull.com/activity/referral"
+                target="_blank"
+                rel="noopener noreferrer sponsored"
+                style={{
+                  background: "rgba(255,255,255,0.04)", color: "#a8a29e",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  borderRadius: 6, padding: "7px 14px",
+                  fontSize: 12, fontWeight: 700, fontFamily: monoFont,
+                  textDecoration: "none", whiteSpace: "nowrap",
+                }}
+              >
+                Webull →
+              </a>
+            </div>
+          </div>
+
           {/* Chart */}
           <div style={{ background: "rgba(255,255,255,0.015)", borderRadius: 10, padding: "8px 4px 2px", position: "relative" }}>
             <svg
