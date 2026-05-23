@@ -693,9 +693,9 @@ export default function PunditTracker() {
       {/* Leaderboard view */}
       {view === "leaderboard" && !punditDetail && (
         <div>
-          <h2 style={{ margin: "0 0 16px", fontSize: 15, color: "#000000", fontFamily: headFont }}>Commentators</h2>
+          <h2 style={{ margin: "0 0 16px", fontSize: 20, color: "#000000", fontFamily: headFont }}>Commentators</h2>
           {leaderboard.length === 0 ? (
-            <div style={{ textAlign: "center", padding: 40, color: "#57534e", fontSize: 14, fontFamily: headFont }}>No commentators tracked yet</div>
+            <div style={{ textAlign: "center", padding: 40, color: "#57534e", fontSize: 16, fontFamily: headFont }}>No commentators tracked yet</div>
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               {leaderboard.map(function(c, i) {
@@ -703,23 +703,23 @@ export default function PunditTracker() {
                   <div key={c.name} style={{
                     display: "flex", alignItems: "center", gap: 14,
                     background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)",
-                    borderRadius: 10, padding: "14px 18px", cursor: "pointer",
+                    borderRadius: 10, padding: "16px 20px", cursor: "pointer",
                   }} onClick={function() { setPunditDetail(c.name); }}>
                     <div style={{
-                      width: 28, height: 28, borderRadius: "50%",
+                      width: 32, height: 32, borderRadius: "50%",
                       background: i === 0 ? "rgba(250,204,21,0.13)" : "rgba(255,255,255,0.04)",
                       display: "flex", alignItems: "center", justifyContent: "center",
-                      fontSize: 13, fontWeight: 800,
+                      fontSize: 15, fontWeight: 800,
                       color: i === 0 ? "#facc15" : "#78716c",
                       fontFamily: headFont,
                     }}>{i + 1}</div>
                     <div style={{ flex: 1 }}>
-                      <div style={{ fontWeight: 700, color: "#000000", fontSize: 14 }}>{c.name}</div>
-                      <div style={{ fontSize: 11, color: "#78716c", fontFamily: monoFont }}>
+                      <div style={{ fontWeight: 700, color: "#000000", fontSize: 16 }}>{c.name}</div>
+                      <div style={{ fontSize: 13, color: "#78716c", fontFamily: monoFont }}>
                         {c.total} call{c.total !== 1 ? "s" : ""} · {c.bullish} bullish · {c.bearish} bearish
                       </div>
                     </div>
-                    <div style={{ fontSize: 11, color: "#78716c", fontFamily: monoFont }}>View →</div>
+                    <div style={{ fontSize: 13, color: "#78716c", fontFamily: monoFont }}>View →</div>
                   </div>
                 );
               })}
@@ -741,10 +741,10 @@ export default function PunditTracker() {
               <button onClick={function() { setPunditDetail(null); }} style={{
                 background: "transparent", color: "#78716c",
                 border: "1px solid rgba(255,255,255,0.08)", borderRadius: 6,
-                padding: "5px 12px", cursor: "pointer", fontSize: 11,
+                padding: "6px 14px", cursor: "pointer", fontSize: 13,
                 fontFamily: monoFont, display: "flex", alignItems: "center", gap: 6,
               }}>← Back</button>
-              <h2 style={{ margin: 0, fontSize: 16, fontWeight: 800, color: "#000000", fontFamily: headFont }}>{punditDetail}</h2>
+              <h2 style={{ margin: 0, fontSize: 22, fontWeight: 800, color: "#000000", fontFamily: headFont }}>{punditDetail}</h2>
             </div>
 
             {/* Mini stats */}
@@ -756,9 +756,9 @@ export default function PunditTracker() {
                 { label: "Neutral", value: pundNeutral, color: "#a1a1aa" },
               ].map(function(s) {
                 return (
-                  <div key={s.label} style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 8, padding: "10px 16px" }}>
-                    <div style={{ fontSize: 10, color: "#78716c", fontFamily: monoFont, textTransform: "uppercase", letterSpacing: 1, marginBottom: 3 }}>{s.label}</div>
-                    <div style={{ fontSize: 22, fontWeight: 700, color: s.color, fontFamily: headFont, lineHeight: 1 }}>{s.value}</div>
+                  <div key={s.label} style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 8, padding: "12px 20px" }}>
+                    <div style={{ fontSize: 12, color: "#78716c", fontFamily: monoFont, textTransform: "uppercase", letterSpacing: 1, marginBottom: 4 }}>{s.label}</div>
+                    <div style={{ fontSize: 28, fontWeight: 700, color: s.color, fontFamily: headFont, lineHeight: 1 }}>{s.value}</div>
                   </div>
                 );
               })}
@@ -768,7 +768,7 @@ export default function PunditTracker() {
             <PunditChart predictions={pundPreds} />
 
             {/* Predictions list */}
-            <div style={{ fontSize: 11, color: "#78716c", fontFamily: monoFont, textTransform: "uppercase", letterSpacing: 1, marginBottom: 10 }}>
+            <div style={{ fontSize: 13, color: "#78716c", fontFamily: monoFont, textTransform: "uppercase", letterSpacing: 1, marginBottom: 12 }}>
               All Calls
             </div>
             {pundPreds.map(function(p) {
