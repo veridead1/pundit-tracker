@@ -185,7 +185,7 @@ function StatCard(props) {
   return (
     <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 10, padding: "18px 20px", flex: 1, minWidth: 110 }}>
       <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: 1.5, color: "#78716c", marginBottom: 6, fontFamily: monoFont }}>{props.label}</div>
-      <div style={{ fontSize: 28, fontWeight: 700, color: props.accent || "#fafaf9", fontFamily: headFont, lineHeight: 1.1 }}>{props.value}</div>
+      <div style={{ fontSize: 28, fontWeight: 700, color: props.accent || "#000000", fontFamily: headFont, lineHeight: 1.1 }}>{props.value}</div>
     </div>
   );
 }
@@ -220,7 +220,7 @@ function PredictionCard(props) {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12, flexWrap: "wrap" }}>
         <div style={{ flex: 1, minWidth: 200 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6, flexWrap: "wrap" }}>
-            <span style={{ fontWeight: 700, fontSize: 14, color: hov ? "#ffffff" : "#fafaf9" }}>{pred.commentator}</span>
+            <span style={{ fontWeight: 700, fontSize: 14, color: "#000000" }}>{pred.commentator}</span>
             <span style={{
               fontSize: 10, textTransform: "uppercase", letterSpacing: 1,
               padding: "2px 8px", borderRadius: 4,
@@ -235,7 +235,7 @@ function PredictionCard(props) {
               }}>{pred.asset}</span>
             )}
           </div>
-          <div style={{ fontSize: 14, color: "#d6d3d1", lineHeight: 1.5, marginBottom: 6, fontStyle: "italic" }}>
+          <div style={{ fontSize: 14, color: "#000000", lineHeight: 1.5, marginBottom: 6, fontStyle: "italic" }}>
             {pred.prediction}
           </div>
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", fontSize: 11, color: "#78716c", fontFamily: monoFont, alignItems: "center" }}>
