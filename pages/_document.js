@@ -13,7 +13,7 @@ export default function Document() {
           rel="stylesheet"
         />
       </Head>
-      <body style={{ margin: 0, background: "#1c1917" }}>
+      <body style={{ margin: 0, background: "#ffffff" }}>
         <Main />
         <NextScript />
       </body>
