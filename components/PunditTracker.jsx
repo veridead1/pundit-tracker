@@ -230,6 +230,7 @@ export default function PunditTracker() {
   const [formError, setFormError] = useState("");
   const [filterCommentator, setFilterCommentator] = useState("all");
   const [filterDirection, setFilterDirection] = useState("all");
+  const [filterYear, setFilterYear] = useState("2026");
   const [confirmReset, setConfirmReset] = useState(false);
 
   const [isAdmin, setIsAdmin] = useState(false);
@@ -354,9 +355,22 @@ export default function PunditTracker() {
   });
   leaderboard.sort(function(a, b) { return b.total - a.total; });
 
+  var allYears = [];
+  var seenYears = {};
+  data.predictions.forEach(function(p) {
+    if (p.date_stated) {
+      var yr = p.date_stated.slice(0, 4);
+      if (!seenYears[yr]) { seenYears[yr] = true; allYears.push(yr); }
+    }
+  });
+  allYears.sort(function(a, b) { return b - a; });
+
   var filtered = data.predictions.filter(function(p) {
     if (filterCommentator !== "all" && p.commentator !== filterCommentator) return false;
     if (filterDirection !== "all" && p.direction !== filterDirection) return false;
+    if (filterYear !== "all") {
+      if (!p.date_stated || p.date_stated.slice(0, 4) !== filterYear) return false;
+    }
     return true;
   });
 
@@ -606,6 +620,10 @@ export default function PunditTracker() {
           <div style={{ display: "flex", gap: 10, marginBottom: 16, flexWrap: "wrap", alignItems: "center" }}>
             {total > 0 && (
               <React.Fragment>
+                <select value={filterYear} onChange={function(e) { setFilterYear(e.target.value); }} style={selectStyle}>
+                  {allYears.map(function(yr) { return <option key={yr} value={yr}>{yr}</option>; })}
+                  <option value="all">All Years</option>
+                </select>
                 <select value={filterCommentator} onChange={function(e) { setFilterCommentator(e.target.value); }} style={selectStyle}>
                   <option value="all">All Commentators</option>
                   {commentatorNames.map(function(n) { return <option key={n} value={n}>{n}</option>; })}
