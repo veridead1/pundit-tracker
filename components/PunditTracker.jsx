@@ -416,17 +416,17 @@ export default function PunditTracker() {
       {/* S&P 500 Targets Sidebar */}
       {sp500Targets.length > 0 && (
         <div style={{
-          width: 200,
+          width: 230,
           flexShrink: 0,
           position: "sticky",
           top: 24,
           background: "rgba(255,255,255,0.02)",
           border: "1px solid rgba(255,255,255,0.06)",
           borderRadius: 12,
-          padding: "14px 12px",
+          padding: "16px 14px",
           alignSelf: "flex-start",
         }}>
-          <div style={{ fontSize: 9, color: "#78716c", fontFamily: monoFont, textTransform: "uppercase", letterSpacing: 1.2, marginBottom: 12 }}>
+          <div style={{ fontSize: 11, color: "#78716c", fontFamily: monoFont, textTransform: "uppercase", letterSpacing: 1.2, marginBottom: 14 }}>
             2026 S&P 500 Targets
           </div>
           {sp500Targets.map(function(t, i) {
@@ -439,23 +439,23 @@ export default function PunditTracker() {
               .replace("Intelligence (60+ institutions)", "")
               .trim();
             return (
-              <div key={t.id} style={{ marginBottom: 8 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 3 }}>
-                  <span style={{ fontSize: 9, color: "#57534e", fontFamily: monoFont, width: 14, textAlign: "right", flexShrink: 0 }}>{i + 1}</span>
-                  <span style={{ flex: 1, fontSize: 10, color: "#a8a29e", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }} title={t.commentator}>
+              <div key={t.id} style={{ marginBottom: 10 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 4 }}>
+                  <span style={{ fontSize: 11, color: "#57534e", fontFamily: monoFont, width: 16, textAlign: "right", flexShrink: 0 }}>{i + 1}</span>
+                  <span style={{ flex: 1, fontSize: 12, color: "#a8a29e", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }} title={t.commentator}>
                     {shortName}
                   </span>
-                  <span style={{ fontSize: 11, fontWeight: 700, color: "#facc15", fontFamily: monoFont, flexShrink: 0 }}>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "#facc15", fontFamily: monoFont, flexShrink: 0 }}>
                     {t.target.toLocaleString()}
                   </span>
                 </div>
-                <div style={{ marginLeft: 20, height: 2, background: "rgba(255,255,255,0.04)", borderRadius: 1 }}>
+                <div style={{ marginLeft: 23, height: 2, background: "rgba(255,255,255,0.04)", borderRadius: 1 }}>
                   <div style={{ height: "100%", width: barPct + "%", background: "rgba(250,204,21,0.35)", borderRadius: 1, minWidth: "8%" }} />
                 </div>
               </div>
             );
           })}
-          <div style={{ marginTop: 12, paddingTop: 10, borderTop: "1px solid rgba(255,255,255,0.05)", fontSize: 9, color: "#57534e", fontFamily: monoFont }}>
+          <div style={{ marginTop: 14, paddingTop: 10, borderTop: "1px solid rgba(255,255,255,0.05)", fontSize: 11, color: "#57534e", fontFamily: monoFont }}>
             {sp500Targets.length} forecasts · hover for full name
           </div>
         </div>
