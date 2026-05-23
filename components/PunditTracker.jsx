@@ -512,16 +512,16 @@ export default function PunditTracker() {
             return (
               <div key={t.id} style={{ marginBottom: 10 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 4 }}>
-                  <span style={{ fontSize: 11, color: "#57534e", fontFamily: monoFont, width: 16, textAlign: "right", flexShrink: 0 }}>{i + 1}</span>
+                  <span style={{ fontSize: 11, color: "#000000", fontFamily: monoFont, width: 16, textAlign: "right", flexShrink: 0 }}>{i + 1}</span>
                   <span style={{ flex: 1, fontSize: 12, fontWeight: 700, color: "#000000", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }} title={t.commentator}>
                     {shortName}
                   </span>
-                  <span style={{ fontSize: 13, fontWeight: 800, color: "#facc15", fontFamily: monoFont, flexShrink: 0 }}>
+                  <span style={{ fontSize: 13, fontWeight: 800, color: "#000000", fontFamily: monoFont, flexShrink: 0 }}>
                     {t.target.toLocaleString()}
                   </span>
                 </div>
-                <div style={{ marginLeft: 23, height: 2, background: "rgba(255,255,255,0.04)", borderRadius: 1 }}>
-                  <div style={{ height: "100%", width: barPct + "%", background: "rgba(250,204,21,0.35)", borderRadius: 1, minWidth: "8%" }} />
+                <div style={{ marginLeft: 23, height: 2, background: "rgba(0,0,0,0.08)", borderRadius: 1 }}>
+                  <div style={{ height: "100%", width: barPct + "%", background: "rgba(0,0,0,0.25)", borderRadius: 1, minWidth: "8%" }} />
                 </div>
               </div>
             );
