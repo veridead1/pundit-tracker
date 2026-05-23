@@ -492,7 +492,7 @@ export default function PunditTracker() {
           padding: "16px 14px",
           alignSelf: "flex-start",
         }}>
-          <div style={{ fontSize: 11, color: "#78716c", fontFamily: monoFont, textTransform: "uppercase", letterSpacing: 1.2, marginBottom: 14 }}>
+          <div style={{ fontSize: 12, color: "#000000", fontFamily: monoFont, textTransform: "uppercase", letterSpacing: 1.2, marginBottom: 14, fontWeight: 700 }}>
             2026 S&P 500 Targets
           </div>
           {sp500Targets.map(function(t, i) {
@@ -508,10 +508,10 @@ export default function PunditTracker() {
               <div key={t.id} style={{ marginBottom: 10 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 4 }}>
                   <span style={{ fontSize: 11, color: "#57534e", fontFamily: monoFont, width: 16, textAlign: "right", flexShrink: 0 }}>{i + 1}</span>
-                  <span style={{ flex: 1, fontSize: 12, color: "#a8a29e", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }} title={t.commentator}>
+                  <span style={{ flex: 1, fontSize: 12, fontWeight: 700, color: "#000000", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }} title={t.commentator}>
                     {shortName}
                   </span>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: "#facc15", fontFamily: monoFont, flexShrink: 0 }}>
+                  <span style={{ fontSize: 13, fontWeight: 800, color: "#facc15", fontFamily: monoFont, flexShrink: 0 }}>
                     {t.target.toLocaleString()}
                   </span>
                 </div>
