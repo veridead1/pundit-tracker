@@ -184,7 +184,7 @@ async function savePin(pin) {
 
 function StatCard(props) {
   return (
-    <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 10, padding: "18px 20px", flex: 1, minWidth: 110 }}>
+    <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 10, padding: "18px 20px", flex: 1, minWidth: 0 }}>
       <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: 1.5, color: "#78716c", marginBottom: 6, fontFamily: monoFont }}>{props.label}</div>
       <div style={{ fontSize: 28, fontWeight: 700, color: props.accent || "#000000", fontFamily: headFont, lineHeight: 1.1 }}>{props.value}</div>
     </div>
@@ -596,7 +596,7 @@ export default function PunditTracker() {
       )}
 
       {/* Stats */}
-      <div style={{ display: "flex", gap: 10, marginBottom: 24, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 10, marginBottom: 24, flexWrap: "nowrap" }}>
         <StatCard label="Total" value={total} />
         <StatCard label="Bullish" value={bullish} accent="#22c55e" />
         <StatCard label="Bearish" value={bearish} accent="#ef4444" />
