@@ -304,8 +304,14 @@ export default function WhatIfView() {
             border: "1px solid " + (isPositive ? "rgba(34,197,94,0.22)" : "rgba(239,68,68,0.22)"),
             borderRadius: 12, padding: "22px 26px", marginBottom: 18,
           }}>
-            <div style={{ fontSize: 13, color: "#78716c", fontFamily: monoFont, marginBottom: 8 }}>
-              {fmtDollar(amount)} invested in {symbol} · {fmtDateShort(chartData[0].date)} → today
+            <div style={{ fontSize: 11, color: "#57534e", fontFamily: monoFont, marginBottom: 10, textTransform: "uppercase", letterSpacing: 1 }}>
+              {symbol} · {fmtDateShort(chartData[0].date)} → today
+            </div>
+            <div style={{ fontSize: 15, color: "#78716c", fontFamily: "'DM Sans', system-ui, sans-serif", fontStyle: "italic", marginBottom: 8, lineHeight: 1.4 }}>
+              In hindsight, you would have {isPositive
+                ? "turned " + fmtDollar(amount) + " into"
+                : "watched " + fmtDollar(amount) + " shrink to"
+              }
             </div>
             <div style={{ fontSize: 52, fontWeight: 700, color: isPositive ? "#22c55e" : "#ef4444", fontFamily: headFont, lineHeight: 1, marginBottom: 14 }}>
               {fmtDollar(currentValue)}
