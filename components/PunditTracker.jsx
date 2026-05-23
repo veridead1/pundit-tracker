@@ -193,6 +193,9 @@ function StatCard(props) {
 function PredictionCard(props) {
   var pred = props.pred;
   var isAdmin = props.isAdmin;
+  var clickable = !!props.onCommentatorClick;
+  const [hov, setHov] = React.useState(false);
+
   var fields = [
     pred.target ? "Target: " + pred.target : null,
     pred.timeframe ? "By: " + pred.timeframe : null,
@@ -202,11 +205,22 @@ function PredictionCard(props) {
   ].filter(Boolean);
 
   return (
-    <div style={{ background: dirBg(pred.direction), border: "1px solid " + dirColor(pred.direction) + "33", borderRadius: 10, padding: "16px 20px", marginBottom: 10, position: "relative" }}>
+    <div
+      onClick={clickable ? function() { props.onCommentatorClick(pred.commentator); } : undefined}
+      onMouseEnter={clickable ? function() { setHov(true); } : undefined}
+      onMouseLeave={clickable ? function() { setHov(false); } : undefined}
+      style={{
+        background: hov ? dirBg(pred.direction).replace("0.08", "0.13").replace("0.06", "0.10") : dirBg(pred.direction),
+        border: "1px solid " + dirColor(pred.direction) + (hov ? "55" : "33"),
+        borderRadius: 10, padding: "16px 20px", marginBottom: 10, position: "relative",
+        cursor: clickable ? "pointer" : "default",
+        transition: "border-color 0.15s, background 0.15s",
+      }}
+    >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12, flexWrap: "wrap" }}>
         <div style={{ flex: 1, minWidth: 200 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6, flexWrap: "wrap" }}>
-            <span style={{ fontWeight: 700, fontSize: 14, color: "#fafaf9" }}>{pred.commentator}</span>
+            <span style={{ fontWeight: 700, fontSize: 14, color: hov ? "#ffffff" : "#fafaf9" }}>{pred.commentator}</span>
             <span style={{
               fontSize: 10, textTransform: "uppercase", letterSpacing: 1,
               padding: "2px 8px", borderRadius: 4,
@@ -224,12 +238,17 @@ function PredictionCard(props) {
           <div style={{ fontSize: 14, color: "#d6d3d1", lineHeight: 1.5, marginBottom: 6, fontStyle: "italic" }}>
             {pred.prediction}
           </div>
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap", fontSize: 11, color: "#78716c", fontFamily: monoFont }}>
+          <div style={{ display: "flex", gap: 12, flexWrap: "wrap", fontSize: 11, color: "#78716c", fontFamily: monoFont, alignItems: "center" }}>
             {fields.map(function(f, idx) { return <span key={idx}>{f}</span>; })}
+            {clickable && (
+              <span style={{ marginLeft: "auto", color: hov ? dirColor(pred.direction) : "#44403c", fontSize: 10, fontFamily: monoFont, transition: "color 0.15s" }}>
+                View pundit →
+              </span>
+            )}
           </div>
         </div>
         {isAdmin && (
-          <button onClick={function() { props.onDelete(pred.id); }} style={{
+          <button onClick={function(e) { e.stopPropagation(); props.onDelete(pred.id); }} style={{
             background: "rgba(120,113,108,0.15)", color: "#78716c",
             border: "1px solid rgba(120,113,108,0.3)", borderRadius: 5,
             padding: "4px 10px", cursor: "pointer", fontSize: 10, fontWeight: 600, fontFamily: monoFont,
@@ -664,7 +683,8 @@ export default function PunditTracker() {
             </div>
           ) : (
             filtered.map(function(p) {
-              return <PredictionCard key={p.id} pred={p} onDelete={handleDelete} isAdmin={isAdmin} />;
+              return <PredictionCard key={p.id} pred={p} onDelete={handleDelete} isAdmin={isAdmin}
+                onCommentatorClick={function(name) { setView("leaderboard"); setPunditDetail(name); }} />;
             })
           )}
         </div>
