@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import PunditChart from "./PunditChart";
 import LivePrices from "./LivePrices";
+import ConsensusView from "./ConsensusView";
 
 const STORAGE_KEY = "pundit-tracker-v4";
 const PIN_KEY = "pundit-tracker-pin";
@@ -458,6 +459,7 @@ export default function PunditTracker() {
   var navItems = [{ key: "dashboard", label: "Feed" }];
   if (isAdmin) navItems.push({ key: "add", label: "+ Add" });
   navItems.push({ key: "leaderboard", label: "Pundits" });
+  navItems.push({ key: "consensus", label: "Consensus" });
 
   if (loading) {
     return (
@@ -778,6 +780,9 @@ export default function PunditTracker() {
           </div>
         );
       })()}
+
+      {/* Consensus view */}
+      {view === "consensus" && <ConsensusView />}
 
       {/* Admin footer */}
       {isAdmin && total > 0 && (
