@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import PunditChart from "./PunditChart";
+import LivePrices from "./LivePrices";
 
 const STORAGE_KEY = "pundit-tracker-v4";
 const PIN_KEY = "pundit-tracker-pin";
@@ -468,7 +469,7 @@ export default function PunditTracker() {
 
   return (
     <div style={{
-      maxWidth: 1080,
+      maxWidth: 1160,
       margin: "0 auto",
       padding: 24,
       fontFamily: "'DM Sans', system-ui, sans-serif",
@@ -797,6 +798,10 @@ export default function PunditTracker() {
       )}
 
       </div> {/* end main content */}
+
+      {/* Right sidebar - Live Prices */}
+      <LivePrices />
+
     </div>
   );
 }
