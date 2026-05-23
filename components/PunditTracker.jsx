@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import PunditChart from "./PunditChart";
 import LivePrices from "./LivePrices";
 import ConsensusView from "./ConsensusView";
+import WhatIfView from "./WhatIfView";
 
 const STORAGE_KEY = "pundit-tracker-v4";
 const PIN_KEY = "pundit-tracker-pin";
@@ -460,6 +461,7 @@ export default function PunditTracker() {
   if (isAdmin) navItems.push({ key: "add", label: "+ Add" });
   navItems.push({ key: "leaderboard", label: "Pundits" });
   navItems.push({ key: "consensus", label: "Consensus" });
+  navItems.push({ key: "whatif", label: "What If" });
 
   if (loading) {
     return (
@@ -783,6 +785,9 @@ export default function PunditTracker() {
 
       {/* Consensus view */}
       {view === "consensus" && <ConsensusView />}
+
+      {/* What If view */}
+      {view === "whatif" && <WhatIfView />}
 
       {/* Admin footer */}
       {isAdmin && total > 0 && (
