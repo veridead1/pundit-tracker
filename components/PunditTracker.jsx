@@ -693,7 +693,7 @@ export default function PunditTracker() {
       {/* Leaderboard view */}
       {view === "leaderboard" && !punditDetail && (
         <div>
-          <h2 style={{ margin: "0 0 16px", fontSize: 15, color: "#fafaf9", fontFamily: headFont }}>Commentators</h2>
+          <h2 style={{ margin: "0 0 16px", fontSize: 15, color: "#000000", fontFamily: headFont }}>Commentators</h2>
           {leaderboard.length === 0 ? (
             <div style={{ textAlign: "center", padding: 40, color: "#57534e", fontSize: 14, fontFamily: headFont }}>No commentators tracked yet</div>
           ) : (
@@ -714,7 +714,7 @@ export default function PunditTracker() {
                       fontFamily: headFont,
                     }}>{i + 1}</div>
                     <div style={{ flex: 1 }}>
-                      <div style={{ fontWeight: 700, color: "#fafaf9", fontSize: 14 }}>{c.name}</div>
+                      <div style={{ fontWeight: 700, color: "#000000", fontSize: 14 }}>{c.name}</div>
                       <div style={{ fontSize: 11, color: "#78716c", fontFamily: monoFont }}>
                         {c.total} call{c.total !== 1 ? "s" : ""} · {c.bullish} bullish · {c.bearish} bearish
                       </div>
@@ -744,13 +744,13 @@ export default function PunditTracker() {
                 padding: "5px 12px", cursor: "pointer", fontSize: 11,
                 fontFamily: monoFont, display: "flex", alignItems: "center", gap: 6,
               }}>← Back</button>
-              <h2 style={{ margin: 0, fontSize: 16, fontWeight: 800, color: "#fafaf9", fontFamily: headFont }}>{punditDetail}</h2>
+              <h2 style={{ margin: 0, fontSize: 16, fontWeight: 800, color: "#000000", fontFamily: headFont }}>{punditDetail}</h2>
             </div>
 
             {/* Mini stats */}
             <div style={{ display: "flex", gap: 8, marginBottom: 22, flexWrap: "wrap" }}>
               {[
-                { label: "Total", value: pundPreds.length, color: "#fafaf9" },
+                { label: "Total", value: pundPreds.length, color: "#000000" },
                 { label: "Bullish", value: pundBullish, color: "#22c55e" },
                 { label: "Bearish", value: pundBearish, color: "#ef4444" },
                 { label: "Neutral", value: pundNeutral, color: "#a1a1aa" },
