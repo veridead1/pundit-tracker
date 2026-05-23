@@ -86,7 +86,7 @@ export default function PunditChart({ predictions }) {
 
   // SVG layout
   var W = 680, H = 270;
-  var ML = 68, MR = 16, MT = 28, MB = 38;
+  var ML = 76, MR = 16, MT = 28, MB = 38;
   var IW = W - ML - MR, IH = H - MT - MB;
 
   var prices = chartData.map(function(d) { return d.price; });
@@ -170,10 +170,10 @@ export default function PunditChart({ predictions }) {
     <div style={{ marginBottom: 28 }}>
       {/* Header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
-        <div style={{ fontSize: 10, color: "#78716c", fontFamily: monoFont, textTransform: "uppercase", letterSpacing: 1.2 }}>
+        <div style={{ fontSize: 13, color: "#78716c", fontFamily: monoFont, textTransform: "uppercase", letterSpacing: 1.2 }}>
           S&P 500 at time of calls
         </div>
-        <div style={{ display: "flex", gap: 12, alignItems: "center", fontFamily: monoFont, fontSize: 11 }}>
+        <div style={{ display: "flex", gap: 12, alignItems: "center", fontFamily: monoFont, fontSize: 13 }}>
           <span style={{ color: "#57534e" }}>
             {fmtDate(chartData[0].date)} – {fmtDate(chartData[chartData.length - 1].date)}
           </span>
@@ -206,7 +206,7 @@ export default function PunditChart({ predictions }) {
           {/* Y axis labels */}
           {yTickVals.map(function(v, i) {
             return (
-              <text key={i} x={ML - 10} y={yOf(v) + 4} textAnchor="end" fill="#57534e" fontSize={9} fontFamily={monoFont}>
+              <text key={i} x={ML - 10} y={yOf(v) + 4} textAnchor="end" fill="#57534e" fontSize={11} fontFamily={monoFont}>
                 {Math.round(v).toLocaleString()}
               </text>
             );
@@ -215,7 +215,7 @@ export default function PunditChart({ predictions }) {
           {/* X axis labels */}
           {xTickIdxs.map(function(idx, i) {
             return (
-              <text key={i} x={xOf(idx)} y={H - 6} textAnchor="middle" fill="#57534e" fontSize={9} fontFamily={monoFont}>
+              <text key={i} x={xOf(idx)} y={H - 6} textAnchor="middle" fill="#57534e" fontSize={11} fontFamily={monoFont}>
                 {fmtDate(chartData[idx].date)}
               </text>
             );
@@ -236,23 +236,23 @@ export default function PunditChart({ predictions }) {
 
           {/* Period high marker */}
           <circle cx={xOf(highIdx)} cy={yOf(chartData[highIdx].price)} r={2.5} fill="#facc15" opacity={0.6} />
-          <text x={xOf(highIdx)} y={yOf(chartData[highIdx].price) - 6} textAnchor="middle" fill="#facc15" fontSize={8} fontFamily={monoFont} opacity={0.7}>
+          <text x={xOf(highIdx)} y={yOf(chartData[highIdx].price) - 6} textAnchor="middle" fill="#facc15" fontSize={10} fontFamily={monoFont} opacity={0.7}>
             ▲ {fmtPrice(chartData[highIdx].price)}
           </text>
 
           {/* Period low marker */}
           <circle cx={xOf(lowIdx)} cy={yOf(chartData[lowIdx].price)} r={2.5} fill="#78716c" opacity={0.6} />
-          <text x={xOf(lowIdx)} y={yOf(chartData[lowIdx].price) + 14} textAnchor="middle" fill="#78716c" fontSize={8} fontFamily={monoFont} opacity={0.7}>
+          <text x={xOf(lowIdx)} y={yOf(chartData[lowIdx].price) + 14} textAnchor="middle" fill="#78716c" fontSize={10} fontFamily={monoFont} opacity={0.7}>
             ▼ {fmtPrice(chartData[lowIdx].price)}
           </text>
 
           {/* Start price label */}
-          <text x={ML + 4} y={yOf(firstPrice) - 6} fill="#78716c" fontSize={8} fontFamily={monoFont}>
+          <text x={ML + 4} y={yOf(firstPrice) - 6} fill="#78716c" fontSize={10} fontFamily={monoFont}>
             {fmtPrice(firstPrice)}
           </text>
 
           {/* End price label */}
-          <text x={ML + IW - 4} y={yOf(lastPrice) - 6} fill="#a8a29e" fontSize={8} fontFamily={monoFont} textAnchor="end">
+          <text x={ML + IW - 4} y={yOf(lastPrice) - 6} fill="#a8a29e" fontSize={10} fontFamily={monoFont} textAnchor="end">
             {fmtPrice(lastPrice)}
           </text>
 
@@ -281,7 +281,7 @@ export default function PunditChart({ predictions }) {
               <g key={i}>
                 <circle cx={cx} cy={cy} r={14} fill={color} opacity={0.07} />
                 <circle cx={cx} cy={cy} r={8} fill={color} stroke="#1c1917" strokeWidth={2} />
-                <text x={cx} y={cy + 3.5} textAnchor="middle" fill="#0c0a09" fontSize={8} fontFamily={monoFont} fontWeight="700">
+                <text x={cx} y={cy + 3.5} textAnchor="middle" fill="#0c0a09" fontSize={10} fontFamily={monoFont} fontWeight="700">
                   {pp.num}
                 </text>
               </g>
@@ -334,8 +334,8 @@ export default function PunditChart({ predictions }) {
             maxWidth: 240,
             boxShadow: "0 4px 20px rgba(0,0,0,0.6)",
           }}>
-            <div style={{ color: "#78716c", marginBottom: 3, fontSize: 10 }}>{fmtDateLong(hovData.date)}</div>
-            <div style={{ color: "#fafaf9", fontWeight: 700, fontSize: 13, marginBottom: hovPreds.length ? 6 : 0 }}>
+            <div style={{ color: "#78716c", marginBottom: 3, fontSize: 12 }}>{fmtDateLong(hovData.date)}</div>
+            <div style={{ color: "#fafaf9", fontWeight: 700, fontSize: 15, marginBottom: hovPreds.length ? 6 : 0 }}>
               {fmtPrice(hovData.price)}
             </div>
             {hovPreds.map(function(pp, i) {
@@ -349,19 +349,19 @@ export default function PunditChart({ predictions }) {
                     <span style={{
                       background: dirColor(pp.pred.direction) + "22",
                       color: dirColor(pp.pred.direction),
-                      fontSize: 9, fontWeight: 700, textTransform: "uppercase",
+                      fontSize: 11, fontWeight: 700, textTransform: "uppercase",
                       padding: "1px 6px", borderRadius: 3,
                     }}>
                       {pp.pred.direction}
                     </span>
-                    <span style={{ color: sincColor, fontSize: 10, fontWeight: 700, marginLeft: "auto" }}>
+                    <span style={{ color: sincColor, fontSize: 12, fontWeight: 700, marginLeft: "auto" }}>
                       {sincSign}{pctSince.toFixed(1)}% since
                     </span>
                   </div>
                   {pp.pred.target && (
-                    <div style={{ color: "#78716c", fontSize: 9, marginBottom: 3 }}>Target: {pp.pred.target}</div>
+                    <div style={{ color: "#78716c", fontSize: 11, marginBottom: 3 }}>Target: {pp.pred.target}</div>
                   )}
-                  <div style={{ color: "#a8a29e", lineHeight: 1.45, fontSize: 10 }}>
+                  <div style={{ color: "#a8a29e", lineHeight: 1.45, fontSize: 12 }}>
                     {pp.pred.prediction.length > 110 ? pp.pred.prediction.slice(0, 110) + "…" : pp.pred.prediction}
                   </div>
                 </div>
@@ -374,7 +374,7 @@ export default function PunditChart({ predictions }) {
       {/* Prediction reference list */}
       {predPoints.length > 0 && (
         <div style={{ marginTop: 14 }}>
-          <div style={{ fontSize: 10, color: "#57534e", fontFamily: monoFont, textTransform: "uppercase", letterSpacing: 1, marginBottom: 8 }}>
+          <div style={{ fontSize: 13, color: "#57534e", fontFamily: monoFont, textTransform: "uppercase", letterSpacing: 1, marginBottom: 8 }}>
             Calls on this chart
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -392,22 +392,22 @@ export default function PunditChart({ predictions }) {
                 }}>
                   {/* Numbered badge */}
                   <div style={{
-                    width: 20, height: 20, borderRadius: "50%", flexShrink: 0,
+                    width: 24, height: 24, borderRadius: "50%", flexShrink: 0,
                     background: dirColor(pp.pred.direction),
                     display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: 9, fontWeight: 700, color: "#0c0a09", marginTop: 1,
+                    fontSize: 11, fontWeight: 700, color: "#0c0a09", marginTop: 1,
                   }}>{pp.num}</div>
 
                   <div style={{ flex: 1, minWidth: 0 }}>
                     {/* Stats row */}
-                    <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap", marginBottom: 5, fontFamily: monoFont, fontSize: 10 }}>
+                    <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap", marginBottom: 5, fontFamily: monoFont, fontSize: 12 }}>
                       <span style={{ color: "#78716c" }}>{fmtDateLong(pp.pred.date_stated)}</span>
                       <span style={{ color: "#a8a29e", fontWeight: 700 }}>S&P {fmtPrice(predPrice)}</span>
                       <span style={{ color: sincColor, fontWeight: 700 }}>{sincSign}{pctSince.toFixed(1)}% since</span>
                       <span style={{
                         background: dirColor(pp.pred.direction) + "22",
                         color: dirColor(pp.pred.direction),
-                        fontSize: 9, fontWeight: 700, textTransform: "uppercase",
+                        fontSize: 11, fontWeight: 700, textTransform: "uppercase",
                         padding: "1px 6px", borderRadius: 3,
                       }}>{pp.pred.direction}</span>
                       {pp.pred.target && (
@@ -415,11 +415,11 @@ export default function PunditChart({ predictions }) {
                       )}
                     </div>
                     {/* Prediction text */}
-                    <div style={{ color: "#78716c", fontSize: 11, lineHeight: 1.5, fontFamily: "'DM Sans', system-ui, sans-serif", fontStyle: "italic" }}>
+                    <div style={{ color: "#78716c", fontSize: 13, lineHeight: 1.5, fontFamily: "'DM Sans', system-ui, sans-serif", fontStyle: "italic" }}>
                       {pp.pred.prediction.length > 160 ? pp.pred.prediction.slice(0, 160) + "…" : pp.pred.prediction}
                     </div>
                     {pp.pred.source && (
-                      <div style={{ fontSize: 10, color: "#44403c", fontFamily: monoFont, marginTop: 4 }}>
+                      <div style={{ fontSize: 12, color: "#44403c", fontFamily: monoFont, marginTop: 4 }}>
                         via {pp.pred.source}
                       </div>
                     )}
