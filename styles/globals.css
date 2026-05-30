@@ -1,0 +1,20 @@
+/* Responsive sidebars */
+
+/* Tablet (≤1024px): hide the live prices right sidebar */
+@media (max-width: 1024px) {
+  .hc-sidebar-right {
+    display: none !important;
+  }
+}
+
+/* Mobile (≤768px): hide both sidebars, full-width feed */
+@media (max-width: 768px) {
+  .hc-sidebar-left {
+    display: none !important;
+  }
+
+  /* Let the main content breathe on small screens */
+  .hc-main {
+    padding: 16px !important;
+  }
+}

@@ -486,7 +486,7 @@ export default function PunditTracker() {
 
       {/* S&P 500 Targets Sidebar */}
       {sp500Targets.length > 0 && (
-        <div style={{
+        <div className="hc-sidebar-left" style={{
           width: 230,
           flexShrink: 0,
           position: "sticky",

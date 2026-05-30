@@ -49,7 +49,7 @@ export default function LivePrices() {
   }, []);
 
   return (
-    <div style={{
+    <div className="hc-sidebar-right" style={{
       width: 190,
       flexShrink: 0,
       position: "sticky",
